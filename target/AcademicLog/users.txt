@@ -1,0 +1,5 @@
+Andrey:321
+Anna:1
+Zoya:123
+Oleg:pass
+Kirill:word
