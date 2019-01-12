@@ -1,9 +1,10 @@
 /home/osboxes/IdeaProjects/AcademicLog/src/main/java/model/Item.java
-/home/osboxes/IdeaProjects/AcademicLog/src/main/java/controller/SheetServlet.java
-/home/osboxes/IdeaProjects/AcademicLog/src/main/java/controller/MainPage.java
-/home/osboxes/IdeaProjects/AcademicLog/src/main/java/controller/LogoutServlet.java
-/home/osboxes/IdeaProjects/AcademicLog/src/main/java/controller/AddingServlet.java
+/home/osboxes/IdeaProjects/AcademicLog/src/main/java/LogoutServlet.java
+/home/osboxes/IdeaProjects/AcademicLog/src/main/java/LoginServlet.java
+/home/osboxes/IdeaProjects/AcademicLog/src/main/java/SheetServlet.java
 /home/osboxes/IdeaProjects/AcademicLog/src/main/java/model/ReaderWriter.java
-/home/osboxes/IdeaProjects/AcademicLog/src/main/java/controller/LoginServlet.java
+/home/osboxes/IdeaProjects/AcademicLog/src/main/java/MainPage.java
+/home/osboxes/IdeaProjects/AcademicLog/src/main/java/AddingServlet.java
 /home/osboxes/IdeaProjects/AcademicLog/src/main/java/model/LogEntry.java
 /home/osboxes/IdeaProjects/AcademicLog/src/main/java/model/XmlIO.java
+/home/osboxes/IdeaProjects/AcademicLog/src/main/java/SavingServlet.java

@@ -11,6 +11,11 @@
   </servlet>
 
   <servlet>
+    <servlet-name>SavingServlet</servlet-name>
+    <servlet-class>SavingServlet</servlet-class>
+  </servlet>
+
+  <servlet>
       <servlet-name>MainPage</servlet-name>
       <servlet-class>MainPage</servlet-class>
   </servlet>
@@ -41,6 +46,11 @@
   </servlet-mapping>
 
   <servlet-mapping>
+    <servlet-name>SavingServlet</servlet-name>
+    <url-pattern>/SavingServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
     <servlet-name>MainPage</servlet-name>
     <url-pattern>/MainPage</url-pattern>
   </servlet-mapping>
@@ -66,3 +76,4 @@
   </servlet-mapping>
 
 </web-app>
+

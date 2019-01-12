@@ -1,4 +1,4 @@
-package controller;
+
 
 import java.io.*;
 import javax.servlet.*;
@@ -42,8 +42,8 @@ public class MainPage extends HttpServlet {
 	
 		out.println("<h3>Subjects</h3>\n");
 
-		out.println("<form method = \"get\" action = \"sheet\">\n");
-        out.println("<select name = \"SubjectSelect\" onsubmit=\"this.form.submit()\">\n");
+		out.println("<form method = \"get\" action = \"sheet\">");
+        out.println("<select name = \"SubjectSelect\" onsubmit=\"this.form.submit()\">");
 		//out.println("<option style=\"display:none\" selected></option>");
 		for (String subject : subjects){
 			out.println("<option value=\"" + subject + "\">" + subject + "</option>\n");

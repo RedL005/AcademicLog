@@ -1,4 +1,4 @@
-package controller;
+
 
 import java.io.*;
 import javax.servlet.*;
@@ -27,7 +27,8 @@ public class SheetServlet extends HttpServlet {
         else{
             request.getRequestDispatcher("link.html").include(request, response);
         }
-		
+
+        out.println("<link rel=\"stylesheet\" href=\"table.css\"/>");
 		
 		String query = request.getQueryString();
 		String subject = query.substring(query.lastIndexOf("=") + 1);
@@ -46,8 +47,10 @@ public class SheetServlet extends HttpServlet {
 			if (cur.equals(subject)) {out.println("selected");}
 			out.println(">" + cur + "</option>\n");
 		}
+
         out.println("</select></form>");
-	
+
+		out.println("<form method=\"GET\" action=\"/AcademicLog/SavingServlet\"> ");
 		out.println("<table>");
 
 		int maxLR = 0;
@@ -58,6 +61,8 @@ public class SheetServlet extends HttpServlet {
 		for (LogEntry cur : entries){
 			maxKR = Math.max(maxKR, cur.getKR().size());
 		}
+		String isRead = "";
+		if (session == null) isRead = "readonly";
 
 		out.print("<tr> <th>Name</th>");
 		for(int i = 0; i < maxLR; i++)
@@ -65,45 +70,52 @@ public class SheetServlet extends HttpServlet {
 		for(int i = 0; i < maxKR; i++)
 			out.print("<th>KR" + (i + 1) + "</th>");
 
-		out.println("<th>CW</th><th>Exam</th><th>Total Score</th></tr>"); 
+		out.println("<th>CW</th><th>Exam</th><th>Total Score</th></tr>");
+
 		
         for(int i = 0; i < entries.size(); i++){
 			out.println("<tr>");
 
-			out.println("<td><name>" + entries.get(i).getName() + "</name></td>");
+			out.println("<td><input type=\"text\" name=\"name\" readonly value=\"" +
+					entries.get(i).getName() + "\"></td>");
 			
 			ArrayList<Character> lrList = entries.get(i).getLR();
 			for (int j = 0; j < maxLR; j++){
+				out.print("<td><input type=\"text\" name=\"LR" + j + "\" ");
 
-				if ( j < lrList.size())	
-					out.print("<td><input type=\"text\" name=\"LR" + j + "\" value=\""
-						+ lrList.get(j) + "\"></td>");
-				else out.print("<td></td>");					
+				if ( j < lrList.size())
+					out.println("value=\"" + lrList.get(j) + "\" " + isRead + "></td>");
+
+				else out.println("value=\"0\" " + isRead + "></td>");
 				
 			}
 			out.print("\n");
 
 			ArrayList<Character> krList = entries.get(i).getKR();
 			for (int j = 0; j < maxKR; j++){
+				out.print("<td><input type=\"text\" name=\"KR" + j + "\" ");
 
-				if ( j < krList.size())	out.print("<td><input type=\"text\" name=\"KR" + j + "\" value=\""
-						+ krList.get(j) + "\"></td>");
-				else out.print("<td></td>");					
+				if ( j < krList.size())
+					out.println("value=\"" + krList.get(j) + "\" " + isRead + "></td>");
+
+				else out.println("value=\"0\" " + isRead + "></td>");
 				
 			}
 			out.print("\n");
 
-			if (entries.get(i).getCW().size() == 1) 
-				out.print("<td><input type=\"text\" name=\"CW\" value=\""
-						+ entries.get(i).getCW().get(0) + "\"></td>");
 
-			else out.print("<td></td>");
+			out.print("<td><input type=\"text\" name=\"CW\" ");
 
-			if (entries.get(i).getExam().size() == 1) 
-				out.print("<td><input type=\"text\" name=\"Exam\" value=\""
-						+ entries.get(i).getExam().get(0) + "\"></td>");
+			if (entries.get(i).getCW().size() == 1)
+				out.println("value=\"" + entries.get(i).getCW().get(0) + "\" " + isRead + "></td>");
 
-			else out.print("<td></td>");
+			else out.print("value=\"0\" " + isRead + "></td>");
+
+			out.print("<td><input type=\"text\" name=\"Exam\" ");
+			if (entries.get(i).getExam().size() == 1)
+				out.println("value=\"" + entries.get(i).getExam().get(0) + "\" " + isRead + "></td>");
+
+			else out.print("value=\"0\" " + isRead + "></td>");
 
 			out.println("<td>" + entries.get(i).getTotal() + "</td>");
 
@@ -111,6 +123,14 @@ public class SheetServlet extends HttpServlet {
 		}
 
 		out.println("</table>");
+
+        if (session != null){
+			out.println("<center><input type=\"submit\" value=\"Submit\"></center>");
+		}
+		out.println("</form>");
+
+
+
         out.println("</body></html>");
 		new XmlIO().saveItemsToFile(save, entries);
         out.close();

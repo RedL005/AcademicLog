@@ -1,9 +1,10 @@
 model/LogEntry.class
+LogoutServlet.class
+MainPage.class
 model/Item.class
 model/XmlIO.class
-controller/AddingServlet.class
-controller/LoginServlet.class
-controller/MainPage.class
-controller/SheetServlet.class
+LoginServlet.class
 model/ReaderWriter.class
-controller/LogoutServlet.class
+SheetServlet.class
+SavingServlet.class
+AddingServlet.class
