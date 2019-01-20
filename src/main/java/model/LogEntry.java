@@ -21,6 +21,14 @@ public class LogEntry {
         this.exam = exam;
     }
 
+    public LogEntry(String name){
+        this.name = name;
+        LR = new ArrayList<>();
+        KR = new ArrayList<>();
+        CW = new ArrayList<>();
+        exam = new ArrayList<>();
+    }
+
     public String getName() {
         return name;
     }
@@ -28,32 +36,40 @@ public class LogEntry {
     public ArrayList<Character> getLR() {
         return LR;
     }
+    public void addLR(Character lr) { LR.add(lr); }
 
     public ArrayList<Character> getKR() {
         return KR;
     }
+    public void addKR(Character kr) { KR.add(kr); }
 
     public ArrayList<Character> getCW() {
         return CW;
     }
+    public void addCW(Character cw) { CW.add(cw); }
 
     public ArrayList<Character> getExam() {
         return exam;
     }
+    public void addExam(Character exam) { this.exam.add(exam); }
 
 	public int getTotal() {
 		int total = 0;
-		for(Character cur : LR)
-			total += Character.getNumericValue(cur.toString().charAt(0));
+		for(Character cur : LR) {
+            total += Character.getNumericValue(cur.toString().charAt(0));
+        }
 
-		for(Character cur : KR)
-			total += Character.getNumericValue(cur.toString().charAt(0));
+		for(Character cur : KR) {
+            total += Character.getNumericValue(cur.toString().charAt(0));
+        }
 
-		for(Character cur : CW)
-			total += Character.getNumericValue(cur.toString().charAt(0));
+		for(Character cur : CW) {
+            total += Character.getNumericValue(cur.toString().charAt(0));
+        }
 
-		for(Character cur : exam)
-			total += Character.getNumericValue(cur.toString().charAt(0));
+		for(Character cur : exam) {
+            total += Character.getNumericValue(cur.toString().charAt(0));
+        }
 
 		return total;
 	}

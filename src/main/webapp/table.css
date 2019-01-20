@@ -4,10 +4,13 @@ table{
 	border: collapse;
 	border: 2px solid black;
 	text-align: center;
+	width: 100%;
 }
 
 th, td{
 	border: 1px solid black;
+	white-space: nowrap;
+	max-width: 100%;
 }
 
 td input[type="text"]{
@@ -19,4 +22,11 @@ td input[type="text"]{
      -webkit-box-sizing:border-box;
      -moz-box-sizing: border-box;
 
+}
+
+td input[type="button"], th input[type="button"]{
+	width: 20px;
+	height: 20px;
+	padding: 0; border: 5px; margin: 2px;
+	text-align: center;
 }

@@ -9,6 +9,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class XmlIO {
@@ -113,34 +114,15 @@ public class XmlIO {
 				}
 
             }
+
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
             StreamResult result = new StreamResult(new File(filename));
-            transformer.transform(source,result);
+            transformer.transform(source, result);
+
         } catch (Exception e) {
             throw new RuntimeException("ErrorTaskSaving");
         }
     }
 }
-
-
-
-
-
-
-/*    public static void main(String[] args) {
-        XmlIO xml = new XmlIO();
-        ArrayList<Item> items = new ArrayList<>();
-        ArrayList<Item> items1 = new ArrayList<>();
-        items.add(new Item("Anna","BMW X6", "new","5000000", "16.11.2018"));
-        items.add(new Item("Anna","House", "used","30000000", "14.11.2018"));
-        items.add(new Item("Andrew","iMac", "used", "300000", "15.11.2018"));
-        items.add(new Item("Lena","Chocolate","new", "150", "13.11.2018"));
-
-
-	String homeDir = System.getProperty("user.home");
-        String fileName = new String(homeDir + "/Documents/TOMCAT/tomcat/webapps/shop/2.xml");
-        xml.saveItemsToFile(fileName, items);
-        xml.loadItemsFromFile(fileName, items1);
-    }*/
