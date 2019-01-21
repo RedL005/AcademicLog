@@ -185,6 +185,7 @@ function addColumn(){
     gradeInput.setAttribute("onkeypress", "return validateGrade(event)");
     gradeInput.setAttribute("maxlength", "1");
     gradeInput.value = "0";
+    console.log('gradeInput: ' + gradeInput.value);
 
     var LW = table.rows[0].getElementsByClassName('LR');
     var Test = table.rows[0].getElementsByClassName('KR');
@@ -213,11 +214,12 @@ function addColumn(){
     var newCell = table.rows[0].insertCell(index + 1);
     var text = document.createTextNode(task + parseInt(taskIndex + 1));
     if (task == 'CW'){
-        text = 'CW';
+        text = document.createTextNode('CW');
     }
-    //console.log(text);
+    newCell.appendChild(document.createTextNode(''));
     newCell.appendChild(deleteButton);
     newCell.appendChild(text);
+
     newCell.setAttribute('name', parseInt(taskIndex + 1));
     newCell.setAttribute('class', modelTask);
 
@@ -226,9 +228,27 @@ function addColumn(){
         var row = table.rows[i];
         var newCell = row.insertCell(index + 1);
         var curInput = gradeInput.cloneNode(true);
-        curInput.setAttribute('name', modelTask + index);
+        console.log('curInput' + i +': ' + curInput.value);
+        console.log('index' + i + ': ' + index + 'task ' + task);
+        if (task == 'CW') index = '';
+        curInput.setAttribute('name', modelTask + taskIndex);
         newCell.appendChild(curInput);
     }
     table.rows[table.rows.length - 1].insertCell(index + 1);
+
+}
+
+function isGradeUsable(element){
+
+    var value = element.options[element.selectedIndex].value;
+    var gradeSearch = document.getElementById('searchGrade');
+    if (value != 'CW' || value != 'Exam'){
+        gradeSearch.setAttribute('value', '');
+        gradeSearch.setAttribute('disabled', 'true');
+    }
+    if (value == 'CW' || value == 'Exam'){
+        console.log('here');
+        gradeSearch.removeAttribute('disabled');
+    }
 
 }

@@ -237,3 +237,18 @@ function addColumn(){
     table.rows[table.rows.length - 1].insertCell(index + 1);
 
 }
+
+function isGradeUsable(element){
+
+    var value = element.options[element.selectedIndex].value;
+    var gradeSearch = document.getElementById('searchGrade');
+    if (value != 'CW' || value != 'Exam'){
+        gradeSearch.setAttribute('value', '');
+        gradeSearch.setAttribute('disabled', 'true');
+    }
+    if (value == 'CW' || value == 'Exam'){
+        console.log('here');
+        gradeSearch.removeAttribute('disabled');
+    }
+
+}

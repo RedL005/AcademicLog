@@ -73,4 +73,27 @@ public class LogEntry {
 
 		return total;
 	}
+
+	public void filter(String subject){
+        if (subject.equals("LR")){
+            KR = new ArrayList<>();
+            CW = new ArrayList<>();
+            exam = new ArrayList<>();
+        }
+        else if (subject.equals("KR")){
+            LR = new ArrayList<>();
+            CW = new ArrayList<>();
+            exam = new ArrayList<>();
+        }
+        else if (subject.equals("CW")){
+            LR = new ArrayList<>();
+            KR = new ArrayList<>();
+            exam = new ArrayList<>();
+        }
+        else if (subject.equals("Exam")){
+            LR = new ArrayList<>();
+            KR = new ArrayList<>();
+            CW = new ArrayList<>();
+        }
+    }
 }

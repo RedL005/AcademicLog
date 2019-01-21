@@ -4,13 +4,14 @@ table{
 	border: collapse;
 	border: 2px solid black;
 	text-align: center;
-	width: 100%;
+
 }
 
 th, td{
 	border: 1px solid black;
 	white-space: nowrap;
-	max-width: 100%;
+	width: 90px;
+	padding: 1px;
 }
 
 td input[type="text"]{

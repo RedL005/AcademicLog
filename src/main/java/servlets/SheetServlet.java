@@ -1,4 +1,4 @@
-
+package servlets;
 
 import java.io.*;
 import javax.servlet.*;
@@ -21,21 +21,22 @@ public class SheetServlet extends HttpServlet {
 
         if(session != null){
 	    	request.getRequestDispatcher("auth_links.html").include(request, response);  
-			String name = (String)session.getAttribute("name");    
-  	    	out.println("Hello, " + name);
+			String name = (String)session.getAttribute("name");
+  	    	out.println("<center>Hello, " + name);
         }
+
         else{
             request.getRequestDispatcher("link.html").include(request, response);
+            out.println("<center>");
         }
 
         out.println("<link id=\"tableStyle\" rel=\"stylesheet\" href=\"table.css\"/>");
 		
 		String query = request.getQueryString();
 		String subject = query.substring(query.lastIndexOf("=") + 1);
-		//String homeDir = System.getProperty("user.home");
         String fileName = new String("/home/osboxes/IdeaProjects/AcademicLog/src/main/webapp/" + subject + ".xml");
 		String logs = new String("/home/osboxes/IdeaProjects/AcademicLog/src/main/webapp/subjects.txt");
-		String save = new String("/home/osboxes/IdeaProjects/AcademicLog/src/main/webapp/saved.xml");
+		//String save = new String("/home/osboxes/IdeaProjects/AcademicLog/src/main/webapp/saved.xml");
 		new XmlIO().loadItemsFromFile(fileName, entries);
 
 
@@ -66,19 +67,20 @@ public class SheetServlet extends HttpServlet {
         out.println("</select></form>");
 		out.println("</div>");
 
-		out.println("<center><div>");
+		out.println("<div>");
 		out.println("<form method=\"get\" action=\"/AcademicLog/search\">");
 		out.print("Name: <input type=\"text\" name=\"searchName\" onkeypress=\"return validateName(event)\"> ");
-		out.println(" Assigment: <select name=\"Assigment\"> ");
+		out.println(" Assigment: <select name=\"Assigment\" onchange=\"isGradeUsable(this)\"> ");
+		out.println("<option value=\"None\">None</option>");
 		out.println("<option value=\"LR\">LW</option>");
 		out.println("<option value=\"KR\">Test</option>");
 		out.println("<option value=\"CW\">CW</option>");
 		out.println("<option value=\"Exam\">Exam</option>");
 		out.println("</select>");
-		out.println(" Grade: <input name=\"Grade\" " + commonPrm + " > ");
+		out.println(" Grade: <input id=\"searchGrade\" disabled=\"true\" name=\"Grade\" " + commonPrm + "> ");
 		out.println(" <input type=\"submit\" value=\"Search\">");
 		out.println("</form>");
-		out.println("</div></center>");
+		out.println("</div></center><br><br>");
 
 		out.println("<div id=\"tableDiv\">");
 		out.println("<form method=\"GET\" action=\"/AcademicLog/SavingServlet\"> ");
@@ -194,7 +196,7 @@ public class SheetServlet extends HttpServlet {
 
 		out.println("<script src=\"javascript/TableProcessing.js\"></script>");
         out.println("</body></html>");
-		new XmlIO().saveItemsToFile(save, entries);
+		//new XmlIO().saveItemsToFile(save, entries);
         out.close();
 		entries.clear();
     }

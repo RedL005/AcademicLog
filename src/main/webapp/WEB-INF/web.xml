@@ -7,37 +7,42 @@
 
   <servlet>
       <servlet-name>LoginServlet</servlet-name>
-      <servlet-class>LoginServlet</servlet-class>
+      <servlet-class>servlets.LoginServlet</servlet-class>
   </servlet>
 
   <servlet>
     <servlet-name>SavingServlet</servlet-name>
-    <servlet-class>SavingServlet</servlet-class>
+    <servlet-class>servlets.SavingServlet</servlet-class>
   </servlet>
 
   <servlet>
       <servlet-name>MainPage</servlet-name>
-      <servlet-class>MainPage</servlet-class>
+      <servlet-class>servlets.MainPage</servlet-class>
   </servlet>
 
   <servlet>
     <servlet-name>ProfileServlet</servlet-name>
-    <servlet-class>ProfileServlet</servlet-class>
+    <servlet-class>servlets.ProfileServlet</servlet-class>
   </servlet>
 
   <servlet>
     <servlet-name>LogoutServlet</servlet-name>
-    <servlet-class>LogoutServlet</servlet-class>
+    <servlet-class>servlets.LogoutServlet</servlet-class>
   </servlet>
 
   <servlet>
     <servlet-name>SheetServlet</servlet-name>
-    <servlet-class>SheetServlet</servlet-class>
+    <servlet-class>servlets.SheetServlet</servlet-class>
   </servlet>
 
-<servlet>
+  <servlet>
     <servlet-name>AddingServlet</servlet-name>
-    <servlet-class>AddingServlet</servlet-class>
+    <servlet-class>servlets.AddingServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+      <servlet-name>SearchServlet</servlet-name>
+      <servlet-class>servlets.SearchServlet</servlet-class>
   </servlet>
 
   <servlet-mapping>
@@ -73,6 +78,11 @@
   <servlet-mapping>
     <servlet-name>AddingServlet</servlet-name>
     <url-pattern>/AddingServlet/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>SearchServlet</servlet-name>
+    <url-pattern>/search</url-pattern>
   </servlet-mapping>
 
 </web-app>

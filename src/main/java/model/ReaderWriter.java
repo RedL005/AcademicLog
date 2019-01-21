@@ -39,16 +39,16 @@ public class ReaderWriter{
 
 
 	public void readSubjects(String fileName, ArrayList<String> subjects)throws IOException{
-		//try{
+		try{
 			FileInputStream fstream = new FileInputStream(fileName);
 	   		BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
 	   		String str;
 	   		while ((str = br.readLine()) != null){
 				subjects.add(str);
-	   	//	}
-		}//catch (IOException e){
-		   //		System.out.println("Error");
-		//}
+	   		}
+		}catch (IOException e){
+			System.out.println("Error");
+		}
 	}
 
 	public void writeSubjects(String fileName, ArrayList<String> subjects){
