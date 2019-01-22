@@ -96,4 +96,46 @@ public class LogEntry {
             CW = new ArrayList<>();
         }
     }
+
+
+    public String toString(){
+        StringBuilder tmp = new StringBuilder(this.name);
+        tmp.append(": LRs: ");
+        for (int i = 0; i < LR.size(); i++){
+            tmp.append(LR.get(i) + " ");
+        }
+        tmp.append("; KRs: ");
+        for (int i = 0; i < KR.size(); i++){
+            tmp.append(KR.get(i) + " ");
+        }
+        tmp.append("; CW: ");
+        for (int i = 0; i < CW.size(); i++){
+            tmp.append(CW.get(i) + " ");
+        }
+        tmp.append("; Exam: ");
+        for (int i = 0; i < exam.size(); i++){
+            tmp.append(exam.get(i) + " ");
+        }
+        String result = new String(tmp);
+        return result;
+    }
+
+    public boolean equals(Object other) {
+        if (other == this) return true;
+        if (!(other instanceof LogEntry)) return false;
+        LogEntry otherLogEntry = (LogEntry) other;
+
+        if (!(this.name.equals(otherLogEntry.name))) return false;
+
+        if (!(this.LR.equals(otherLogEntry.LR))) return false;
+
+        if (!(this.KR.equals(otherLogEntry.KR))) return false;
+
+        if (!(this.CW.equals(otherLogEntry.CW))) return false;
+
+        if (!(this.exam.equals(otherLogEntry.exam))) return false;
+
+        return true;
+    }
+
 }
