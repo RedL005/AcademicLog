@@ -70,14 +70,14 @@ public class SheetServlet extends HttpServlet {
 		out.println("<div>");
 		out.println("<form method=\"get\" action=\"/AcademicLog/search\">");
 		out.print("Name: <input type=\"text\" name=\"searchName\" onkeypress=\"return validateName(event)\"> ");
-		out.println(" Assigment: <select name=\"Assigment\" onchange=\"isGradeUsable(this)\"> ");
+		out.println(" Assigment: <select name=\"Assigment\"> ");
 		out.println("<option value=\"None\">None</option>");
 		out.println("<option value=\"LR\">LW</option>");
 		out.println("<option value=\"KR\">Test</option>");
 		out.println("<option value=\"CW\">CW</option>");
 		out.println("<option value=\"Exam\">Exam</option>");
 		out.println("</select>");
-		out.println(" Grade: <input id=\"searchGrade\" disabled=\"true\" name=\"Grade\" " + commonPrm + "> ");
+		out.println(" Grade: <input id=\"searchGrade\" name=\"Grade\" " + commonPrm + "> ");
 		out.println(" <input type=\"submit\" value=\"Search\">");
 		out.println("</form>");
 		out.println("</div></center><br><br>");

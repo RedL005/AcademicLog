@@ -10,6 +10,8 @@ import model.*;
 public class SearchServlet extends HttpServlet {
     ArrayList<LogEntry> entries;
     ArrayList<LogEntry> resultEntries;
+    PrintWriter out;
+    HttpSession session;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -18,10 +20,10 @@ public class SearchServlet extends HttpServlet {
         resultEntries = new ArrayList<LogEntry>();
 
         response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
+        out = response.getWriter();
         out.println("<html><body>");
         out.println("<link id=\"tableStyle\" rel=\"stylesheet\" href=\"table.css\"/>");
-        HttpSession session = request.getSession(false);
+        session = request.getSession(false);
 
         String name = request.getParameter("searchName");
         String assigment = request.getParameter("Assigment");
@@ -43,7 +45,7 @@ public class SearchServlet extends HttpServlet {
 
             searchByName(name);
             searchByAssigment(assigment);
-            searchByGrade(grade, assigment);
+            //searchByGrade(grade, assigment);
 
 
             out.println("<center><h2>" + subject + "</h2></center>");
@@ -51,75 +53,19 @@ public class SearchServlet extends HttpServlet {
                 out.println("<center>No entries that much search parameters</center><br><br><br>");
                 continue;
             }
-            out.println("<table>");
 
-            int maxLR = 0;
-            for (LogEntry cur : resultEntries){
-                maxLR = Math.max(maxLR, cur.getLR().size());
-            }
-            int maxKR = 0;
-            for (LogEntry cur : resultEntries){
-                maxKR = Math.max(maxKR, cur.getKR().size());
-            }
-            int isCW = 0;
-            String isRead = "";
-            if (session == null) isRead = "readonly";
+            if (subject.equals("CW") || subject.equals("Exam"))
+                showTable(resultEntries, grade);
 
-            out.print("<tr> <th>Name</th>");
-            for(int i = 0; i < maxLR; i++)
-                out.print("<th>LW" + (i + 1) + "</th>");
-            for(int i = 0; i < maxKR; i++)
-                out.print("<th>Test" + (i + 1) + "</th>");
-            if (resultEntries.get(0).getCW().size() == 1) {
-                out.println("<th>CW</th>");
-                isCW = 1;
-            }
-            if (resultEntries.get(0).getExam().size() == 1)
-                out.println("<th>Exam</th>");
+            else{
+                ArrayList<LogEntry> tmp = new ArrayList<>();
 
-            out.println("</tr>");
-
-            for(int i = 0; i < resultEntries.size(); i++){
-                out.println("<tr>");
-
-                out.println("<td> " + resultEntries.get(i).getName() + "</td>");
-
-                ArrayList<Character> lrList = resultEntries.get(i).getLR();
-                for (int j = 0; j < maxLR; j++){
-                    out.print("<td>");
-
-                    if ( j < lrList.size())
-                        out.println(lrList.get(j) + "</td>");
-
-                    else out.println("0</td>");
-
+                for (int i = 0; i < resultEntries.size(); i++){
+                    tmp.add(resultEntries.get(i));
+                    showTable(tmp, grade);
+                    tmp.remove(0);
                 }
-                out.print("\n");
-
-                ArrayList<Character> krList = resultEntries.get(i).getKR();
-                for (int j = 0; j < maxKR; j++){
-                    out.print("<td>");
-
-                    if ( j < krList.size())
-                        out.println(krList.get(j) + "</td>");
-
-                    else out.println("0</td>");
-
-                }
-                out.print("\n");
-
-
-                if (resultEntries.get(i).getCW().size() == 1) {
-                    out.println("<td>" + resultEntries.get(i).getCW().get(0) + "</td>");
-                }
-
-                if (resultEntries.get(i).getExam().size() == 1)
-                    out.println("<td>" + resultEntries.get(i).getExam().get(0) + "</td>");
-
-                out.println("</tr>");
             }
-
-            out.println("</table><br><br><br>");
 
 
 
@@ -159,7 +105,37 @@ public class SearchServlet extends HttpServlet {
         if (grade == null) return;
         for (int i = 0; i < resultEntries.size(); i++) {
 
-            if (assigment.equals("CW")) {
+            if (assigment.equals("LR")) {
+                ArrayList<Character> LR = resultEntries.get(i).getLR();
+
+                if (LR.size() == 0 ) {
+                    resultEntries.remove(i--);
+                    continue;
+                }
+
+                for (int j = 0; j < LR.size(); j++){
+                    if (!(LR.get(j).equals(grade.charAt(0)))) {
+                        LR.remove(j--);
+                    }
+                }
+            }
+
+            else if (assigment.equals("KR")) {
+                ArrayList<Character> KR = resultEntries.get(i).getKR();
+
+                if (KR.size() == 0 ) {
+                    resultEntries.remove(i--);
+                    continue;
+                }
+
+                for (int j = 0; j < KR.size(); j++){
+                    if (!(KR.get(j).equals(grade.charAt(0)))) {
+                        KR.remove(j--);
+                    }
+                }
+            }
+
+            else if (assigment.equals("CW")) {
                 ArrayList<Character> CW = resultEntries.get(i).getCW();
 
                 if (CW.size() == 0 ) {
@@ -170,7 +146,6 @@ public class SearchServlet extends HttpServlet {
                 for (int j = 0; j < CW.size(); j++){
                     if (!(CW.get(j).equals(grade.charAt(0)))) {
                         resultEntries.remove(i--);
-                        continue;
                     }
                 }
             }
@@ -180,11 +155,125 @@ public class SearchServlet extends HttpServlet {
                 for (int j = 0; j < exam.size(); j++){
                     if (!(exam.get(j).equals(grade.charAt(0)))) {
                         resultEntries.remove(i--);
-                        continue;
                     }
                 }
             }
         }
 
+    }
+
+    private void showTable(ArrayList<LogEntry> list, String grade){
+        out.println("<table>");
+
+        int maxLR = 0;
+        for (LogEntry cur : list){
+            maxLR = Math.max(maxLR, cur.getLR().size());
+        }
+        int maxKR = 0;
+        for (LogEntry cur : list){
+            maxKR = Math.max(maxKR, cur.getKR().size());
+        }
+        int isCW = 0;
+        String isRead = "";
+        if (session == null) isRead = "readonly";
+
+        out.print("<tr> <th>Name</th>");
+        for(int i = 0; i < maxLR; i++) {
+            if (grade.equals(""))
+                out.print("<th>LW" + (i + 1) + "</th>");
+            else
+            if (list.get(0).getLR().get(i).equals(grade.charAt(0)))
+                out.print("<th>LW" + (i + 1) + "</th>");
+        }
+        for(int i = 0; i < maxKR; i++) {
+            if (grade.equals(""))
+                out.print("<th>Test" + (i + 1) + "</th>");
+            else
+            if ( list.get(0).getKR().get(i).equals(grade.charAt(0)))
+                out.print("<th>Test" + (i + 1) + "</th>");
+        }
+        if (list.get(0).getCW().size() == 1) {
+            if (grade.equals("")) {
+                out.println("<th>CW</th>");
+                isCW = 1;
+            }
+            else
+            if (list.get(0).getCW().get(0).equals(grade.charAt(0))) {
+                out.println("<th>CW</th>");
+                isCW = 1;
+            }
+        }
+        if (list.get(0).getExam().size() == 1)
+            if (grade.equals(""))
+                out.println("<th>Exam</th>");
+            else
+            if (list.get(0).getExam().get(0).equals(grade.charAt(0)))
+                out.println("<th>Exam</th>");
+
+        out.println("</tr>");
+
+        for(int i = 0; i < list.size(); i++){
+            out.println("<tr>");
+
+            out.println("<td> " + list.get(i).getName() + "</td>");
+
+            ArrayList<Character> lrList = list.get(i).getLR();
+            for (int j = 0; j < maxLR; j++){
+                if (grade.equals("")) {
+                    out.print("<td>");
+
+                    if (j < lrList.size())
+                        out.println(lrList.get(j) + "</td>");
+
+                    else out.println("0</td>");
+                }
+                else
+                if (lrList.get(j).equals(grade.charAt(0))){
+                    out.print("<td>");
+                    out.println(lrList.get(j) + "</td>");
+                }
+
+            }
+            out.print("\n");
+
+            ArrayList<Character> krList = list.get(i).getKR();
+            for (int j = 0; j < maxKR; j++){
+                if (grade.equals("")) {
+                    out.print("<td>");
+
+                    if (j < krList.size())
+                        out.println(krList.get(j) + "</td>");
+
+                    else out.println("0</td>");
+                }
+                else
+                if (krList.get(j).equals(grade.charAt(0))){
+                    out.print("<td>");
+                    out.println(krList.get(j) + "</td>");
+                }
+
+            }
+            out.print("\n");
+
+
+            if (list.get(i).getCW().size() == 1) {
+                if (grade.equals(""))
+                    out.println("<td>" + list.get(i).getCW().get(0) + "</td>");
+                else
+                if (list.get(i).getCW().get(0).equals(grade.charAt(0)))
+                    out.println("<td>" + list.get(i).getCW().get(0) + "</td>");
+            }
+
+            if (list.get(i).getExam().size() == 1)
+                if (grade.equals(""))
+                    out.println("<td>" + list.get(i).getExam().get(0) + "</td>");
+                else
+                if (list.get(i).getExam().get(0).equals(grade.charAt(0)))
+                    out.println("<td>" + list.get(i).getExam().get(0) + "</td>");
+
+            out.println("</tr>");
+        }
+
+        out.println("</table><br>");
     }
 }
