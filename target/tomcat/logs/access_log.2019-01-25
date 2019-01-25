@@ -1,0 +1,7 @@
+127.0.0.1 - - [25/Jan/2019:17:19:57 +0300] "GET /AcademicLog/sheet?SubjectSelect=Math HTTP/1.1" 200 6230 http-bio-8080-exec-1 140
+127.0.0.1 - - [25/Jan/2019:17:19:57 +0300] "GET /AcademicLog/javascript/TableProcessing.js HTTP/1.1" 304 - http-bio-8080-exec-2 3
+127.0.0.1 - - [25/Jan/2019:17:19:57 +0300] "GET /AcademicLog/table.css HTTP/1.1" 304 - http-bio-8080-exec-3 2
+127.0.0.1 - - [25/Jan/2019:17:19:59 +0300] "GET /AcademicLog/search?searchName=&Assigment=None&Grade= HTTP/1.1" 200 2895 http-bio-8080-exec-4 33
+127.0.0.1 - - [25/Jan/2019:17:20:04 +0300] "GET /AcademicLog/search?searchName=&Assigment=KR&Grade=3 HTTP/1.1" 200 1250 http-bio-8080-exec-6 20
+127.0.0.1 - - [25/Jan/2019:17:20:11 +0300] "GET /AcademicLog/search?searchName=&Assigment=KR&Grade=3 HTTP/1.1" 200 1250 http-bio-8080-exec-7 14
+127.0.0.1 - - [25/Jan/2019:17:20:19 +0300] "GET /AcademicLog/search?searchName=&Assigment=KR&Grade= HTTP/1.1" 200 1750 http-bio-8080-exec-8 13
