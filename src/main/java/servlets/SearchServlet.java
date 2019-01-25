@@ -48,9 +48,9 @@ public class SearchServlet extends HttpServlet {
             //searchByGrade(grade, assigment);
 
 
-            out.println("<center><h2>" + subject + "</h2></center>");
+            out.println("<div class=\"subject\"> <center><h2>" + subject + "</h2></center>");
             if (resultEntries.size() == 0){
-                out.println("<center>No entries that much search parameters</center><br><br><br>");
+                out.println("</div>");
                 continue;
             }
 
@@ -66,12 +66,9 @@ public class SearchServlet extends HttpServlet {
                     tmp.remove(0);
                 }
             }
-
-
-
-
+            out.println("</div>");
         }
-
+        out.println("<script src=\"javascript/SearchScript.js\"></script>");
         out.println("</body></html>");
     }
 
@@ -180,35 +177,35 @@ public class SearchServlet extends HttpServlet {
         out.print("<tr> <th>Name</th>");
         for(int i = 0; i < maxLR; i++) {
             if (grade.equals(""))
-                out.print("<th>LW" + (i + 1) + "</th>");
+                out.print("<th class=\"LR\">LW" + (i + 1) + "</th>");
             else
             if (list.get(0).getLR().get(i).equals(grade.charAt(0)))
-                out.print("<th>LW" + (i + 1) + "</th>");
+                out.print("<th class=\"LR\">LW" + (i + 1) + "</th>");
         }
         for(int i = 0; i < maxKR; i++) {
             if (grade.equals(""))
-                out.print("<th>Test" + (i + 1) + "</th>");
+                out.print("<th class=\"KR\">Test" + (i + 1) + "</th>");
             else
             if ( list.get(0).getKR().get(i).equals(grade.charAt(0)))
-                out.print("<th>Test" + (i + 1) + "</th>");
+                out.print("<th class=\"KR\">Test" + (i + 1) + "</th>");
         }
         if (list.get(0).getCW().size() == 1) {
             if (grade.equals("")) {
-                out.println("<th>CW</th>");
+                out.println("<th class=\"CW\">CW</th>");
                 isCW = 1;
             }
             else
             if (list.get(0).getCW().get(0).equals(grade.charAt(0))) {
-                out.println("<th>CW</th>");
+                out.println("<th class=\"CW\">CW</th>");
                 isCW = 1;
             }
         }
         if (list.get(0).getExam().size() == 1)
             if (grade.equals(""))
-                out.println("<th>Exam</th>");
+                out.println("<th class=\"Exam\">Exam</th>");
             else
             if (list.get(0).getExam().get(0).equals(grade.charAt(0)))
-                out.println("<th>Exam</th>");
+                out.println("<th class=\"Exam\">Exam</th>");
 
         out.println("</tr>");
 

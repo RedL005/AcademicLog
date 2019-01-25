@@ -98,7 +98,7 @@ public class SheetServlet extends HttpServlet {
 		String isRead = "";
 		if (session == null) isRead = "readonly";
 
-		out.print("<tr> <th>Name</th>");
+		out.print("<tr> <th class=\"nameCell\">Name</th>");
 		for(int i = 0; i < maxLR; i++)
 			out.print("<th name=\"" + (i + 1) + "\" class=\"LR\"> " + deleteColumn + "LW" + (i + 1) + "</th>");
 		for(int i = 0; i < maxKR; i++)
@@ -128,7 +128,7 @@ public class SheetServlet extends HttpServlet {
         for(int i = 0; i < entries.size(); i++){
 			out.println("<tr>");
 
-			out.println("<td> " + deleteRow + " <input type=\"text\" name=\"name\" "+ isRead +
+			out.println("<td class=\"nameCell\"> " + deleteRow + " <input type=\"text\" name=\"name\" "+ isRead +
 					" value=\"" + entries.get(i).getName() + "\" onkeypress=\"return validateName(event)\"></td>");
 			
 			ArrayList<Character> lrList = entries.get(i).getLR();

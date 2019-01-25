@@ -77,23 +77,7 @@ function addRow(){
 
     newCell = newRow.insertCell(-1);
     newCell.innerHTML = "0";
-
-//    tmp = table.rows[1].cloneNode(true);
-//    var len = tmp.cells.length;
-//    //newRow = tmp;
-//
-//    for (var i = 0; i < len; i++){
-//        var clone = tmp.cells[i].cloneNode(true);
-//        newRow.appendChild(clone);
-//    }
-//
-//    for (var i = 0; i < len - 1; i++){
-//        if (i == 0) var inp = newRow.cells[i].getElementsByTagName('input')[1];
-//        else var inp = newRow.cells[i].getElementsByTagName('input')[0];
-//        inp.value = '';
-//    }
-//    var inp = newRow.cells[len - 1];
-//    inp.innerHTML = '';
+    newCell = newRow.insertCell(-1);
 
 }
 
@@ -216,6 +200,8 @@ function addColumn(){
     if (task == 'CW'){
         text = document.createTextNode('CW');
     }
+    bold = document.createElement('strong');
+    bold.appendChild(text);
     newCell.appendChild(document.createTextNode(''));
     newCell.appendChild(deleteButton);
     newCell.appendChild(text);
